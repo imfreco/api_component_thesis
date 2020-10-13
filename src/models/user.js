@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         through: 'UserRoles',
         foreignKey: 'roleId',
       });
-      this.hasMany(models.UserInscriptions, {
+      this.hasMany(models.Inscription, {
         foreignKey: 'userId',
       });
     }
