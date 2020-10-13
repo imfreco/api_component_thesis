@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.User);
-      this.belongsTo(models.Sisben);
-      this.belongsTo(models.Average);
-      this.belongsTo(models.Population);
+      // this.belongsTo(models.User);
+      // this.belongsTo(models.Sisben);
+      // this.belongsTo(models.Average);
+      // this.belongsTo(models.Population);
     }
   }
   Inscription.init(
@@ -31,7 +31,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      state: DataTypes.BOOLEAN,
+      state: {
+        defaultValue: 0,
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
     },
     {
       sequelize,

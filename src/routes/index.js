@@ -6,7 +6,12 @@ require('express-async-errors');
 
 const { notFoundMiddleware, errorMiddleware } = require('../middlewares');
 
-module.exports = function ({ AverageRoutes, SisbenRoutes, PopulationRoutes }) {
+module.exports = function ({
+  AverageRoutes,
+  SisbenRoutes,
+  PopulationRoutes,
+  InscriptionRoutes,
+}) {
   const router = express.Router();
   const routing = express.Router();
 
@@ -15,6 +20,7 @@ module.exports = function ({ AverageRoutes, SisbenRoutes, PopulationRoutes }) {
   routing.use('/average', AverageRoutes);
   routing.use('/sisben', SisbenRoutes);
   routing.use('/population', PopulationRoutes);
+  routing.use('/inscription', InscriptionRoutes);
 
   router.use('/v1/api', routing);
 

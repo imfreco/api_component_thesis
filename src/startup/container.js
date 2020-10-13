@@ -9,6 +9,7 @@ const {
   AverageRoutes,
   SisbenRoutes,
   PopulationRoutes,
+  InscriptionRoutes,
 } = require('../routes/index.routes');
 const Routes = require('../routes');
 
@@ -19,6 +20,7 @@ const {
   AverageController,
   SisbenController,
   PopulationController,
+  InscriptionController,
 } = require('../controllers');
 
 // services
@@ -26,6 +28,7 @@ const {
   AverageService,
   SisbenService,
   PopulationService,
+  InscriptionService,
 } = require('../services');
 
 // repositories
@@ -33,6 +36,7 @@ const {
   AverageRepository,
   SisbenRepository,
   PopulationRepository,
+  InscriptionRepository,
 } = require('../repositories');
 
 // database
@@ -51,6 +55,7 @@ container
     AverageRoutes: asFunction(AverageRoutes).singleton(),
     SisbenRoutes: asFunction(SisbenRoutes).singleton(),
     PopulationRoutes: asFunction(PopulationRoutes).singleton(),
+    InscriptionRoutes: asFunction(InscriptionRoutes).singleton(),
   })
   .register({
     AverageController: asClass(
@@ -62,16 +67,21 @@ container
     PopulationController: asClass(
       PopulationController.bind(PopulationController)
     ).singleton(),
+    InscriptionController: asClass(
+      InscriptionController.bind(InscriptionController)
+    ).singleton(),
   })
   .register({
     AverageService: asClass(AverageService).singleton(),
     SisbenService: asClass(SisbenService).singleton(),
     PopulationService: asClass(PopulationService).singleton(),
+    InscriptionService: asClass(InscriptionService).singleton(),
   })
   .register({
     AverageRepository: asClass(AverageRepository).singleton(),
     SisbenRepository: asClass(SisbenRepository).singleton(),
     PopulationRepository: asClass(PopulationRepository).singleton(),
+    InscriptionRepository: asClass(InscriptionRepository).singleton(),
   });
 
 module.exports = container;
