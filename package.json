@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "migrate": "sequelize-cli db:migrate",
+    "createdb": "sequelize-cli db:create"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,9 @@
   "devDependencies": {
     "dotenv": "^8.2.0",
     "jest": "^26.4.2",
-    "nodemon": "^2.0.4"
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
     "awilix": "^4.2.6",
