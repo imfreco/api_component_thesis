@@ -9,7 +9,7 @@ class InscriptionRepository extends BaseRepository {
 
   async getByUserId(userId) {
     return await _inscription.findAll({
-      attributes: ['createdAt', 'state'],
+      attributes: ['id', 'createdAt', 'state'],
       where: {
         userId,
       },

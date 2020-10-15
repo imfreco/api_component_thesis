@@ -21,6 +21,13 @@ class InscriptionController {
     const inscription = await _inscriptionService.create(body);
     return res.status(201).send(inscription);
   }
+
+  async patchAdmit(req, res) {
+    const { inscriptionId } = req.params;
+    const { body } = req;
+    const inscription = await _inscriptionService.update(inscriptionId, body);
+    return res.send(inscription);
+  }
 }
 
 module.exports = InscriptionController;

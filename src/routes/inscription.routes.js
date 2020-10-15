@@ -5,7 +5,10 @@ module.exports = function ({ InscriptionController }) {
 
   router.get('/', InscriptionController.getAll);
   router.get('/:userId', InscriptionController.getByUserId);
+
   router.post('/', InscriptionController.create);
+
+  router.patch('/admit/:inscriptionId', InscriptionController.patchAdmit);
 
   return router;
 };
