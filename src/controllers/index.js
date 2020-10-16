@@ -3,4 +3,5 @@ module.exports = {
   SisbenController: require('./sisben.controller'),
   PopulationController: require('./population.controller'),
   InscriptionController: require('./inscription.controller'),
+  ComponentController: require('./component.controller'),
 };

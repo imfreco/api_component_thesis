@@ -3,4 +3,5 @@ module.exports = {
   SisbenService: require('./sisben.service'),
   PopulationService: require('./population.service'),
   InscriptionService: require('./inscription.service'),
+  ComponentService: require('./component.service'),
 };

@@ -3,4 +3,5 @@ module.exports = {
   SisbenRepository: require('./sisben.repository'),
   PopulationRepository: require('./population.repository'),
   InscriptionRepository: require('./inscription.repository'),
+  ComponentRepository: require('./component.repository'),
 };

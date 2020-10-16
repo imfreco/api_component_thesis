@@ -11,6 +11,7 @@ module.exports = function ({
   SisbenRoutes,
   PopulationRoutes,
   InscriptionRoutes,
+  ComponentRoutes,
 }) {
   const router = express.Router();
   const routing = express.Router();
@@ -21,6 +22,7 @@ module.exports = function ({
   routing.use('/sisben', SisbenRoutes);
   routing.use('/population', PopulationRoutes);
   routing.use('/inscription', InscriptionRoutes);
+  routing.use('/component', ComponentRoutes);
 
   router.use('/v1/api', routing);
 
