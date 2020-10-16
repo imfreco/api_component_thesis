@@ -28,6 +28,12 @@ class InscriptionController {
     const inscription = await _inscriptionService.update(inscriptionId, body);
     return res.send(inscription);
   }
+
+  async delete(req, res) {
+    const { inscriptionId } = req.params;
+    const inscription = await _inscriptionService.delete(inscriptionId);
+    return res.send(inscription);
+  }
 }
 
 module.exports = InscriptionController;

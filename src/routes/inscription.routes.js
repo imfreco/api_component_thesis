@@ -10,5 +10,7 @@ module.exports = function ({ InscriptionController }) {
 
   router.patch('/admit/:inscriptionId', InscriptionController.patchAdmit);
 
+  router.delete('/:inscriptionId', InscriptionController.delete);
+
   return router;
 };
