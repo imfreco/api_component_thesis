@@ -11,6 +11,7 @@ const {
   PopulationRoutes,
   InscriptionRoutes,
   ComponentRoutes,
+  MenuRoutes,
 } = require('../routes/index.routes');
 const Routes = require('../routes');
 
@@ -23,6 +24,7 @@ const {
   PopulationController,
   InscriptionController,
   ComponentController,
+  MenuController,
 } = require('../controllers');
 
 // services
@@ -32,6 +34,7 @@ const {
   PopulationService,
   InscriptionService,
   ComponentService,
+  MenuService,
 } = require('../services');
 
 // repositories
@@ -41,6 +44,7 @@ const {
   PopulationRepository,
   InscriptionRepository,
   ComponentRepository,
+  MenuRepository,
 } = require('../repositories');
 
 // database
@@ -61,6 +65,7 @@ container
     PopulationRoutes: asFunction(PopulationRoutes).singleton(),
     InscriptionRoutes: asFunction(InscriptionRoutes).singleton(),
     ComponentRoutes: asFunction(ComponentRoutes).singleton(),
+    MenuRoutes: asFunction(MenuRoutes).singleton(),
   })
   .register({
     AverageController: asClass(
@@ -78,6 +83,7 @@ container
     ComponentController: asClass(
       ComponentController.bind(ComponentController)
     ).singleton(),
+    MenuController: asClass(MenuController.bind(MenuController)).singleton(),
   })
   .register({
     AverageService: asClass(AverageService).singleton(),
@@ -85,6 +91,7 @@ container
     PopulationService: asClass(PopulationService).singleton(),
     InscriptionService: asClass(InscriptionService).singleton(),
     ComponentService: asClass(ComponentService).singleton(),
+    MenuService: asClass(MenuService).singleton(),
   })
   .register({
     AverageRepository: asClass(AverageRepository).singleton(),
@@ -92,6 +99,7 @@ container
     PopulationRepository: asClass(PopulationRepository).singleton(),
     InscriptionRepository: asClass(InscriptionRepository).singleton(),
     ComponentRepository: asClass(ComponentRepository).singleton(),
+    MenuRepository: asClass(MenuRepository).singleton(),
   });
 
 module.exports = container;

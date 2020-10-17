@@ -4,4 +4,5 @@ module.exports = {
   PopulationRepository: require('./population.repository'),
   InscriptionRepository: require('./inscription.repository'),
   ComponentRepository: require('./component.repository'),
+  MenuRepository: require('./menu.repository'),
 };

@@ -12,6 +12,7 @@ module.exports = function ({
   PopulationRoutes,
   InscriptionRoutes,
   ComponentRoutes,
+  MenuRoutes,
 }) {
   const router = express.Router();
   const routing = express.Router();
@@ -23,6 +24,7 @@ module.exports = function ({
   routing.use('/population', PopulationRoutes);
   routing.use('/inscription', InscriptionRoutes);
   routing.use('/component', ComponentRoutes);
+  routing.use('/menu', MenuRoutes);
 
   router.use('/v1/api', routing);
 

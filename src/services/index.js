@@ -4,4 +4,5 @@ module.exports = {
   PopulationService: require('./population.service'),
   InscriptionService: require('./inscription.service'),
   ComponentService: require('./component.service'),
+  MenuService: require('./menu.service'),
 };
