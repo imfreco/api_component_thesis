@@ -5,4 +5,5 @@ module.exports = {
   InscriptionService: require('./inscription.service'),
   ComponentService: require('./component.service'),
   MenuService: require('./menu.service'),
+  AuthenticationService: require('./authentication.service'),
 };

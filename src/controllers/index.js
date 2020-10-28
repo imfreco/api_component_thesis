@@ -5,4 +5,5 @@ module.exports = {
   InscriptionController: require('./inscription.controller'),
   ComponentController: require('./component.controller'),
   MenuController: require('./menu.controller'),
+  AuthenticationController: require('./authentication.controller'),
 };

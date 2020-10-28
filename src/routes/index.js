@@ -13,6 +13,7 @@ module.exports = function ({
   InscriptionRoutes,
   ComponentRoutes,
   MenuRoutes,
+  AuthenticationRoutes,
 }) {
   const router = express.Router();
   const routing = express.Router();
@@ -25,6 +26,7 @@ module.exports = function ({
   routing.use('/inscription', InscriptionRoutes);
   routing.use('/component', ComponentRoutes);
   routing.use('/menu', MenuRoutes);
+  routing.use('/auth', AuthenticationRoutes);
 
   router.use('/v1/api', routing);
 

@@ -12,6 +12,7 @@ const {
   InscriptionRoutes,
   ComponentRoutes,
   MenuRoutes,
+  AuthenticationRoutes,
 } = require('../routes/index.routes');
 const Routes = require('../routes');
 
@@ -25,6 +26,7 @@ const {
   InscriptionController,
   ComponentController,
   MenuController,
+  AuthenticationController,
 } = require('../controllers');
 
 // services
@@ -35,6 +37,7 @@ const {
   InscriptionService,
   ComponentService,
   MenuService,
+  AuthenticationService,
 } = require('../services');
 
 // repositories
@@ -45,6 +48,7 @@ const {
   InscriptionRepository,
   ComponentRepository,
   MenuRepository,
+  AuthenticationRepository,
 } = require('../repositories');
 
 // database
@@ -66,6 +70,7 @@ container
     InscriptionRoutes: asFunction(InscriptionRoutes).singleton(),
     ComponentRoutes: asFunction(ComponentRoutes).singleton(),
     MenuRoutes: asFunction(MenuRoutes).singleton(),
+    AuthenticationRoutes: asFunction(AuthenticationRoutes).singleton(),
   })
   .register({
     AverageController: asClass(
@@ -84,6 +89,9 @@ container
       ComponentController.bind(ComponentController)
     ).singleton(),
     MenuController: asClass(MenuController.bind(MenuController)).singleton(),
+    AuthenticationController: asClass(
+      AuthenticationController.bind(AuthenticationController)
+    ).singleton(),
   })
   .register({
     AverageService: asClass(AverageService).singleton(),
@@ -92,6 +100,7 @@ container
     InscriptionService: asClass(InscriptionService).singleton(),
     ComponentService: asClass(ComponentService).singleton(),
     MenuService: asClass(MenuService).singleton(),
+    AuthenticationService: asClass(AuthenticationService).singleton(),
   })
   .register({
     AverageRepository: asClass(AverageRepository).singleton(),
@@ -100,6 +109,7 @@ container
     InscriptionRepository: asClass(InscriptionRepository).singleton(),
     ComponentRepository: asClass(ComponentRepository).singleton(),
     MenuRepository: asClass(MenuRepository).singleton(),
+    AuthenticationRepository: asClass(AuthenticationRepository).singleton(),
   });
 
 module.exports = container;

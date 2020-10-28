@@ -5,4 +5,5 @@ module.exports = {
   InscriptionRoutes: require('./inscription.routes'),
   ComponentRoutes: require('./component.routes'),
   MenuRoutes: require('./menu.routes'),
+  AuthenticationRoutes: require('./authentication.routes'),
 };
