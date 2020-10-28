@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Inscription, {
         foreignKey: 'userId',
       });
+      this.hasOne(models.Credential, {
+        foreignKey: 'userId',
+      });
     }
   }
   User.init(
@@ -29,19 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       phone: {
         unique: true,
         type: DataTypes.STRING,
-        allowNull: false,
       },
-      email: {
-        unique: true,
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      birthday: DataTypes.DATE,
-      image: DataTypes.STRING,
     },
     {
       sequelize,
