@@ -1,4 +1,7 @@
-const { generateSubstitutionDictionaryHelper } = require('../helpers');
+const {
+  generateSubstitutionDictionaryHelper,
+  generateJwtHelper,
+} = require('../helpers');
 
 let _authenticationService = null;
 
@@ -8,8 +11,12 @@ class AuthenticationController {
   }
 
   async getSubstitutionDictionary(req, res) {
-    const substitutionDictionary = generateSubstitutionDictionaryHelper();
-    return res.send(substitutionDictionary);
+    let dictionary = generateSubstitutionDictionaryHelper();
+    const token = generateJwtHelper(
+      { dictionary },
+      { algorithm: 'HS256', expiresIn: 60 * 5 }
+    );
+    return res.send({ token });
   }
 }
 
