@@ -38,6 +38,7 @@ const {
   ComponentService,
   MenuService,
   AuthenticationService,
+  UserService,
 } = require('../services');
 
 // repositories
@@ -49,6 +50,7 @@ const {
   ComponentRepository,
   MenuRepository,
   AuthenticationRepository,
+  UserRepository,
 } = require('../repositories');
 
 // database
@@ -101,6 +103,7 @@ container
     ComponentService: asClass(ComponentService).singleton(),
     MenuService: asClass(MenuService).singleton(),
     AuthenticationService: asClass(AuthenticationService).singleton(),
+    UserService: asClass(UserService).singleton(),
   })
   .register({
     AverageRepository: asClass(AverageRepository).singleton(),
@@ -110,6 +113,7 @@ container
     ComponentRepository: asClass(ComponentRepository).singleton(),
     MenuRepository: asClass(MenuRepository).singleton(),
     AuthenticationRepository: asClass(AuthenticationRepository).singleton(),
+    UserRepository: asClass(UserRepository).singleton(),
   });
 
 module.exports = container;

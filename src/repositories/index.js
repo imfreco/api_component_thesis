@@ -6,4 +6,5 @@ module.exports = {
   ComponentRepository: require('./component.repository'),
   MenuRepository: require('./menu.repository'),
   AuthenticationRepository: require('./authentication.repository'),
+  UserRepository: require('./user.repository'),
 };

@@ -1,10 +1,14 @@
-module.exports = (password, dictionary) => {
+const { compareSync } = require('bcrypt');
+
+module.exports = (password, dictionary, hashpass) => {
+  console.time('comparationLogic');
   let r = [],
+    nCombinations = 0,
     c = 0,
     n = 0,
     valuesOfN = 0,
     combination = '',
-    combinations = [],
+    isCorrect = false,
     disccountColumn = 0,
     lastColumn,
     canContinue = true;
@@ -37,11 +41,19 @@ module.exports = (password, dictionary) => {
       if (r[0][0] === 0) r[0][0] = r[0][1];
       else r[0][0]--;
       c = 0;
-      combinations.push(combination);
+      const isPass = compareSync(combination, hashpass);
+      nCombinations++;
+      if (isPass) {
+        canContinue = false;
+        isCorrect = true;
+      }
       combination = '';
     } else c++;
   }
-  return combinations;
+  console.info(`length password: ${password.length}`);
+  console.info(`combinations compared: ${nCombinations}`);
+  console.timeEnd('comparationLogic');
+  return isCorrect;
 };
 
 const resetIndexesRows = (array, from) => {

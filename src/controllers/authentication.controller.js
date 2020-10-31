@@ -21,12 +21,12 @@ class AuthenticationController {
 
   async signIn(req, res) {
     const { email, password, dict_token } = req.body;
-    const isAuthenticated = await _authenticationService.signIn(
+    const token = await _authenticationService.signIn(
       email,
       password,
       dict_token
     );
-    return res.send({ isAuthenticated });
+    return res.send(token);
   }
 }
 

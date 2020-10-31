@@ -1,19 +1,22 @@
 const { verify } = require('jsonwebtoken');
-const { compareSync } = require('bcrypt');
 
 const BaseService = require('./base.service');
-let _authenticationRepository = null;
+let _authenticationRepository = null,
+  _userService = null;
 
 const { JWT_SECRET } = require('../config');
 const {
-  generateCombinationsHelper,
+  compareCombinationsHelper,
   generateErrorHelper,
 } = require('../helpers');
+const { hashSync } = require('bcrypt');
+const generateJwtHelper = require('../helpers/generate.jwt.helper');
 
 class AuthenticationService extends BaseService {
-  constructor({ AuthenticationRepository }) {
+  constructor({ AuthenticationRepository, UserService }) {
     super(AuthenticationRepository);
     _authenticationRepository = AuthenticationRepository;
+    _userService = UserService;
   }
 
   async signIn(email, password, dict_token) {
@@ -31,24 +34,22 @@ class AuthenticationService extends BaseService {
     if (!payload)
       generateErrorHelper(400, 'El diccionario de sustitución caducó');
 
-    const combinations = generateCombinationsHelper(
+    let match = compareCombinationsHelper(
       password,
-      payload.dictionary
+      payload.dictionary,
+      creds.hashpass
     );
-
-    let match = false;
-    for (let i = 0; i < combinations.length; i++) {
-      const combination = combinations[i];
-      if (compareSync(combination, creds.hashpass)) {
-        match = true;
-        break;
-      }
-    }
 
     if (!match) generateErrorHelper(400, 'Credenciales incorrectas');
 
-    // return await _authenticationRepository.getUserById(creds.userId);
-    return true;
+    const { id, name, lastname } = await _userService.get(creds.userId);
+
+    const id_token = generateJwtHelper(
+      { sub: id, name, lastname },
+      { expiresIn: 60 * 5 }
+    );
+
+    return { id_token };
   }
 }
 

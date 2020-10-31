@@ -6,4 +6,5 @@ module.exports = {
   ComponentService: require('./component.service'),
   MenuService: require('./menu.service'),
   AuthenticationService: require('./authentication.service'),
+  UserService: require('./user.service'),
 };
