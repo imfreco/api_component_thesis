@@ -18,6 +18,16 @@ class AuthenticationController {
     );
     return res.send({ token });
   }
+
+  async signIn(req, res) {
+    const { email, password, dict_token } = req.body;
+    const isAuthenticated = await _authenticationService.signIn(
+      email,
+      password,
+      dict_token
+    );
+    return res.send({ isAuthenticated });
+  }
 }
 
 module.exports = AuthenticationController;

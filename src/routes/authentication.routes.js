@@ -8,7 +8,7 @@ module.exports = function ({ AuthenticationController }) {
     AuthenticationController.getSubstitutionDictionary
   );
 
-  // router.post('/signin', AuthenticationController.signIn);
+  router.post('/signin', AuthenticationController.signIn);
   // router.post('/signup', AuthenticationController.signUp);
 
   return router;
