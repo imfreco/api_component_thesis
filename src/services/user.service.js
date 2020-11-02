@@ -6,6 +6,10 @@ class UserService extends BaseService {
     super(UserRepository);
     _userRepository = UserRepository;
   }
+
+  async getRolesByUser(userId) {
+    return await _userRepository.getRolesByUser(userId);
+  }
 }
 
 module.exports = UserService;

@@ -9,7 +9,6 @@ const {
   compareCombinationsHelper,
   generateErrorHelper,
 } = require('../helpers');
-const { hashSync } = require('bcrypt');
 const generateJwtHelper = require('../helpers/generate.jwt.helper');
 
 class AuthenticationService extends BaseService {
@@ -43,9 +42,11 @@ class AuthenticationService extends BaseService {
     if (!match) generateErrorHelper(400, 'Credenciales incorrectas');
 
     const { id, name, lastname } = await _userService.get(creds.userId);
+    let roles = await _userService.getRolesByUser(id);
+    roles = roles.map((role) => role.name);
 
     const id_token = generateJwtHelper(
-      { sub: id, name, lastname },
+      { sub: id, name, lastname, roles },
       { expiresIn: 60 * 5 }
     );
 
