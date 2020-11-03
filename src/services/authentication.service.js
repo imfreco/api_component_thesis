@@ -8,14 +8,24 @@ const { JWT_SECRET } = require('../config');
 const {
   compareCombinationsHelper,
   generateErrorHelper,
+  generateJwtHelper,
+  generateSubstitutionDictionaryHelper,
 } = require('../helpers');
-const generateJwtHelper = require('../helpers/generate.jwt.helper');
+const timesJwtFixture = require('../fixtures/times.jwt.fixture');
 
 class AuthenticationService extends BaseService {
   constructor({ AuthenticationRepository, UserService }) {
     super(AuthenticationRepository);
     _authenticationRepository = AuthenticationRepository;
     _userService = UserService;
+  }
+
+  async getSubstitutionDictionary() {
+    let dictionary = generateSubstitutionDictionaryHelper();
+    return generateJwtHelper(
+      { dictionary },
+      { expiresIn: timesJwtFixture.dict_token }
+    );
   }
 
   async signIn(email, password, dict_token) {
@@ -33,24 +43,29 @@ class AuthenticationService extends BaseService {
     if (!payload)
       generateErrorHelper(400, 'El diccionario de sustitución caducó');
 
-    let match = compareCombinationsHelper(
+    let isMatched = compareCombinationsHelper(
       password,
       payload.dictionary,
       creds.hashpass
     );
 
-    if (!match) generateErrorHelper(400, 'Credenciales incorrectas');
+    if (!isMatched) generateErrorHelper(400, 'Credenciales incorrectas');
 
     const { id, name, lastname } = await _userService.get(creds.userId);
     let roles = await _userService.getRolesByUser(id);
     roles = roles.map((role) => role.name);
 
     const id_token = generateJwtHelper(
-      { sub: id, name, lastname, roles },
-      { expiresIn: 60 * 5 }
+      { user: id, name, lastname, roles },
+      { expiresIn: timesJwtFixture.id_token }
     );
 
-    return { id_token };
+    const refresh_token = generateJwtHelper(
+      { user: id },
+      { expiresIn: timesJwtFixture.refresh_token }
+    );
+
+    return { id_token, refresh_token };
   }
 }
 

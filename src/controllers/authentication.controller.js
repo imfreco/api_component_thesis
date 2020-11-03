@@ -1,8 +1,3 @@
-const {
-  generateSubstitutionDictionaryHelper,
-  generateJwtHelper,
-} = require('../helpers');
-
 let _authenticationService = null;
 
 class AuthenticationController {
@@ -11,12 +6,13 @@ class AuthenticationController {
   }
 
   async getSubstitutionDictionary(req, res) {
-    let dictionary = generateSubstitutionDictionaryHelper();
-    const token = generateJwtHelper(
-      { dictionary },
-      { algorithm: 'HS256', expiresIn: 60 * 5 }
-    );
+    const token = await _authenticationService.getSubstitutionDictionary();
     return res.send({ token });
+  }
+
+  async getRefreshToken(req, res) {
+    const id_token = req.headers['Authorization'];
+    return res.send({ id_token });
   }
 
   async signIn(req, res) {

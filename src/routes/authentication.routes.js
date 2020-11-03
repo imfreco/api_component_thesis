@@ -7,6 +7,7 @@ module.exports = function ({ AuthenticationController }) {
     '/substitution',
     AuthenticationController.getSubstitutionDictionary
   );
+  router.get('/refresh', AuthenticationController.getRefreshToken);
 
   router.post('/signin', AuthenticationController.signIn);
   // router.post('/signup', AuthenticationController.signUp);
