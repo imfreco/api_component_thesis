@@ -28,6 +28,27 @@ class AuthenticationService extends BaseService {
     );
   }
 
+  async getRefreshToken(refresh_token) {
+    const payload = verify(refresh_token, JWT_SECRET);
+
+    if (!payload) generateErrorHelper(400, 'token invalido');
+
+    const { id, name, lastname } = await _userService.get(payload.user);
+    let roles = await _userService.getRolesByUser(id);
+    roles = roles.map((role) => role.name);
+
+    const new_id_token = generateJwtHelper(
+      { user: id, name, lastname, roles },
+      { expiresIn: timesJwtFixture.id_token }
+    );
+    const new_refresh_token = generateJwtHelper(
+      { user: id },
+      { expiresIn: timesJwtFixture.refresh_token }
+    );
+
+    return { id_token: new_id_token, refresh_token: new_refresh_token };
+  }
+
   async signIn(email, password, dict_token) {
     const creds = await _authenticationRepository.getCredentialsByEmail(email);
 

@@ -1,3 +1,5 @@
+const generateErrorHelper = require('../helpers/generate.error.helper');
+
 let _authenticationService = null;
 
 class AuthenticationController {
@@ -11,8 +13,11 @@ class AuthenticationController {
   }
 
   async getRefreshToken(req, res) {
-    const id_token = req.headers['Authorization'];
-    return res.send({ id_token });
+    const refresh_token = req.headers['authorization'];
+    if (!refresh_token) generateErrorHelper(400, 'refresh token must be sent');
+
+    const token = await _authenticationService.getRefreshToken(refresh_token);
+    return res.send(token);
   }
 
   async signIn(req, res) {
