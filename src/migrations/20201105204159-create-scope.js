@@ -7,12 +7,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      modelId: {
+      moduleId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Models',
+          model: 'Modules',
           key: 'id',
         },
       },

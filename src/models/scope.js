@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Scope.init(
     {
-      modelId: {
+      moduleId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
