@@ -12,6 +12,7 @@ const {
   generateSubstitutionDictionaryHelper,
 } = require('../helpers');
 const timesJwtFixture = require('../fixtures/times.jwt.fixture');
+const { hashSync } = require('bcrypt');
 
 class AuthenticationService extends BaseService {
   constructor({ AuthenticationRepository, UserService }) {

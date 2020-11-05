@@ -1,11 +1,12 @@
 const { Router } = require('express');
+const { authenticationMiddleware } = require('../middlewares');
 
 module.exports = function ({ ComponentController }) {
   const router = Router();
 
-  router.get('/', ComponentController.getAll);
+  router.get('/', [authenticationMiddleware], ComponentController.getAll);
 
-  router.post('/', ComponentController.create);
+  router.post('/', [authenticationMiddleware], ComponentController.create);
 
   return router;
 };

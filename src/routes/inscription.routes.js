@@ -1,16 +1,29 @@
 const { Router } = require('express');
+const { authenticationMiddleware } = require('../middlewares');
 
 module.exports = function ({ InscriptionController }) {
   const router = Router();
 
-  router.get('/', InscriptionController.getAll);
-  router.get('/:userId', InscriptionController.getByUserId);
+  router.get('/', [authenticationMiddleware], InscriptionController.getAll);
+  router.get(
+    '/:userId',
+    [authenticationMiddleware],
+    InscriptionController.getByUserId
+  );
 
-  router.post('/', InscriptionController.create);
+  router.post('/', [authenticationMiddleware], InscriptionController.create);
 
-  router.patch('/admit/:inscriptionId', InscriptionController.patchAdmit);
+  router.patch(
+    '/admit/:inscriptionId',
+    [authenticationMiddleware],
+    InscriptionController.patchAdmit
+  );
 
-  router.delete('/:inscriptionId', InscriptionController.delete);
+  router.delete(
+    '/:inscriptionId',
+    [authenticationMiddleware],
+    InscriptionController.delete
+  );
 
   return router;
 };
