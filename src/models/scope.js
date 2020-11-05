@@ -1,38 +1,37 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Role extends Model {
+  class Scope extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsToMany(models.User, {
-        through: 'UserRoles',
-        foreignKey: 'userId',
-      });
-      this.belongsToMany(models.Scope, {
+      this.belongsToMany(models.Role, {
         through: 'RoleScopes',
-        foreignKey: 'scopeId',
+        foreignKey: 'roleId',
       });
     }
   }
-  Role.init(
+  Scope.init(
     {
-      name: {
-        unique: true,
-        type: DataTypes.STRING,
+      modelId: {
         allowNull: false,
+        type: DataTypes.INTEGER,
       },
-      description: {
-        unique: true,
-        type: DataTypes.STRING,
+      methodId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      fullAccess: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
       },
     },
     {
       sequelize,
-      modelName: 'Role',
+      modelName: 'Scope',
     }
   );
-  return Role;
+  return Scope;
 };

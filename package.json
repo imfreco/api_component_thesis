@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "migrate": "sequelize-cli db:migrate",
-    "createdb": "sequelize-cli db:create"
+    "db:create": "sequelize-cli db:create",
+    "db:migrate": "sequelize-cli db:migrate"
   },
   "repository": {
     "type": "git",
