@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsToMany(models.Role, {
-        through: 'UserRoles',
-        foreignKey: 'roleId',
+        through: models.UserRoles,
+        foreignKey: 'userId',
       });
       this.hasMany(models.Inscription, {
         foreignKey: 'userId',

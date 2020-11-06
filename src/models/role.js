@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsToMany(models.User, {
-        through: 'UserRoles',
-        foreignKey: 'userId',
+        through: models.UserRoles,
+        foreignKey: 'roleId',
       });
       this.belongsToMany(models.Scope, {
-        through: 'RoleScopes',
-        foreignKey: 'scopeId',
+        through: models.RoleScopes,
+        foreignKey: 'roleId',
       });
     }
   }
