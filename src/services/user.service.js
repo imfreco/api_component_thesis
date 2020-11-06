@@ -10,6 +10,15 @@ class UserService extends BaseService {
   async getRolesByUser(userId) {
     return await _userRepository.getRolesByUser(userId);
   }
+
+  async getScopesByUser(userId, method, module, fullAccess) {
+    return await _userRepository.getScopesByUser(
+      userId,
+      method,
+      module,
+      fullAccess
+    );
+  }
 }
 
 module.exports = UserService;
