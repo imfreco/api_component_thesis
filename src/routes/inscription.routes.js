@@ -1,5 +1,14 @@
 const { Router } = require('express');
-const { authenticationMiddleware } = require('../middlewares');
+const {
+  authenticationMiddleware,
+  validationsMiddleware,
+} = require('../middlewares');
+const {
+  createSchema,
+  readSchema,
+  updateSchema,
+  deleteSchema,
+} = require('../schemas/inscription.schema');
 
 module.exports = function ({ InscriptionController }) {
   const router = Router();
@@ -7,21 +16,25 @@ module.exports = function ({ InscriptionController }) {
   router.get('/', [authenticationMiddleware], InscriptionController.getAll);
   router.get(
     '/:userId',
-    [authenticationMiddleware],
+    [authenticationMiddleware, readSchema, validationsMiddleware],
     InscriptionController.getByUserId
   );
 
-  router.post('/', [authenticationMiddleware], InscriptionController.create);
+  router.post(
+    '/',
+    [authenticationMiddleware, createSchema, validationsMiddleware],
+    InscriptionController.create
+  );
 
   router.patch(
     '/admit/:inscriptionId',
-    [authenticationMiddleware],
+    [authenticationMiddleware, updateSchema, validationsMiddleware],
     InscriptionController.patchAdmit
   );
 
   router.delete(
     '/:inscriptionId',
-    [authenticationMiddleware],
+    [authenticationMiddleware, deleteSchema, validationsMiddleware],
     InscriptionController.delete
   );
 

@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 module.exports = {
   PORT: process.env.PORT,
   JWT_SECRET: process.env.JWT_SECRET,
-  development: {
+  test: {
     username: 'postgres',
     password: 'supersecret',
     database: 'DB_Thesis',
@@ -11,7 +11,7 @@ module.exports = {
     port: 5432,
     dialect: 'postgres',
   },
-  test: {
+  development: {
     username: 'root',
     password: null,
     database: 'DB_Thesis',
