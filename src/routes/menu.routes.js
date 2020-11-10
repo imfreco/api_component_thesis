@@ -10,7 +10,7 @@ module.exports = function ({ MenuController }) {
 
   router.post(
     '/',
-    [createSchema, validationsMiddleware],
+    [authenticationMiddleware, createSchema, validationsMiddleware],
     MenuController.createMenuWithDetails
   );
 
