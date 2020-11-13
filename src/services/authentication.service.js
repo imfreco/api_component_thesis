@@ -12,7 +12,7 @@ const {
   generateSubstitutionDictionaryHelper,
 } = require('../helpers');
 const timesJwtFixture = require('../fixtures/times.jwt.fixture');
-const { hashSync } = require('bcrypt');
+// const { hashSync } = require('bcrypt');
 
 class AuthenticationService extends BaseService {
   constructor({ AuthenticationRepository, UserService }) {
@@ -32,11 +32,18 @@ class AuthenticationService extends BaseService {
   async getRefreshToken(refresh_token) {
     const payload = verify(refresh_token, JWT_SECRET);
 
-    if (!payload) generateErrorHelper(400, 'token invalido');
+    if (!payload) generateErrorHelper(401, 'Token expirado');
 
     const { id, name, lastname } = await _userService.get(payload.user);
     let roles = await _userService.getRolesByUser(id);
     roles = roles.map((role) => role.name);
+    const { lastRT } = await _userService.getCredentials(id);
+
+    // reused detection
+    if (lastRT !== refresh_token) {
+      await _userService.updateLastRefreshToken(id, null);
+      generateErrorHelper(403, 'Token reusado');
+    }
 
     const new_id_token = generateJwtHelper(
       { user: id, name, lastname, roles },
@@ -46,6 +53,8 @@ class AuthenticationService extends BaseService {
       { user: id },
       { expiresIn: timesJwtFixture.refresh_token }
     );
+
+    await _userService.updateLastRefreshToken(id, new_refresh_token);
 
     return { id_token: new_id_token, refresh_token: new_refresh_token };
   }
@@ -86,6 +95,8 @@ class AuthenticationService extends BaseService {
       { user: id },
       { expiresIn: timesJwtFixture.refresh_token }
     );
+
+    await _userService.updateLastRefreshToken(id, refresh_token);
 
     return { id_token, refresh_token };
   }

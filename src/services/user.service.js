@@ -19,6 +19,14 @@ class UserService extends BaseService {
       fullAccess
     );
   }
+
+  async updateLastRefreshToken(userId, refresh_token) {
+    return await _userRepository.updateLastRefreshToken(userId, refresh_token);
+  }
+
+  async getCredentials(userId) {
+    return await _userRepository.getCredentials(userId);
+  }
 }
 
 module.exports = UserService;

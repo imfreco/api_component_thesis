@@ -1,5 +1,6 @@
 const BaseRepository = require('./base.repository');
 let _user = null,
+  _credential = null,
   _role = null,
   _scope = null,
   _method = null,
@@ -12,6 +13,7 @@ class UserRepository extends BaseRepository {
     _scope = db['Scope'];
     _method = db['Method'];
     _module = db['Module'];
+    _credential = db['Credential'];
     super(_user);
   }
 
@@ -27,6 +29,7 @@ class UserRepository extends BaseRepository {
   }
 
   async getScopesByUser(userId, method, module, fullAccess) {
+    // TODO: corregir
     return _scope.findAll({
       attributes: ['id'],
       include: [
@@ -51,6 +54,23 @@ class UserRepository extends BaseRepository {
         },
       ],
       where: { fullAccess },
+    });
+  }
+
+  async updateLastRefreshToken(userId, refresh_token) {
+    return await _credential.update(
+      { lastRT: refresh_token },
+      {
+        where: { userId },
+        fields: ['lastRT'],
+      }
+    );
+  }
+
+  async getCredentials(userId) {
+    return await _credential.findOne({
+      attributes: ['lastRT'],
+      where: { userId },
     });
   }
 }
