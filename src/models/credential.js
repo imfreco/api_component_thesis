@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
+      lastRT: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
     },
     {
       sequelize,
