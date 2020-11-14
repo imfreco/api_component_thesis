@@ -29,6 +29,13 @@ class AuthenticationController {
     );
     return res.send(token);
   }
+
+  async signOut(req, res) {
+    const { userId } = req.params;
+
+    const sor = await _authenticationService.signOut(userId);
+    return res.send(sor);
+  }
 }
 
 module.exports = AuthenticationController;

@@ -30,9 +30,12 @@ class AuthenticationService extends BaseService {
   }
 
   async getRefreshToken(refresh_token) {
-    const payload = verify(refresh_token, JWT_SECRET);
-
-    if (!payload) generateErrorHelper(401, 'Token expirado');
+    let payload;
+    try {
+      payload = verify(refresh_token, JWT_SECRET);
+    } catch (error) {
+      generateErrorHelper(401, 'Token expirado');
+    }
 
     const { id, name, lastname } = await _userService.get(payload.user);
     let roles = await _userService.getRolesByUser(id);
@@ -60,19 +63,23 @@ class AuthenticationService extends BaseService {
   }
 
   async signIn(email, password, dict_token) {
-    const creds = await _authenticationRepository.getCredentialsByEmail(email);
+    let payload;
 
-    if (!creds) generateErrorHelper(400, 'Correo electrónico no existe');
+    try {
+      payload = verify(dict_token, JWT_SECRET);
+    } catch (error) {
+      generateErrorHelper(400, 'El diccionario de sustitución caducó');
+    }
 
     if (isNaN(password))
       generateErrorHelper(400, 'Está intentando acceder de forma sospechosa');
 
+    const creds = await _authenticationRepository.getCredentialsByEmail(email);
+
+    if (!creds) generateErrorHelper(400, 'Correo electrónico no existe');
+
     if (creds.lengthpass != password.length)
       generateErrorHelper(400, 'La longitud de su contraseña es incorrecta');
-
-    const payload = verify(dict_token, JWT_SECRET);
-    if (!payload)
-      generateErrorHelper(400, 'El diccionario de sustitución caducó');
 
     let isMatched = compareCombinationsHelper(
       password,
@@ -99,6 +106,14 @@ class AuthenticationService extends BaseService {
     await _userService.updateLastRefreshToken(id, refresh_token);
 
     return { id_token, refresh_token };
+  }
+
+  async signOut(userId) {
+    const [res] = await _userService.updateLastRefreshToken(userId, null);
+
+    if (res === 0) generateErrorHelper(500, 'Algo ha salido mal');
+
+    return { message: 'Sesión cerrada satisfactoriamente' };
   }
 }
 

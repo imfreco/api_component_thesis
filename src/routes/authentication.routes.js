@@ -23,7 +23,8 @@ module.exports = function ({ AuthenticationController }) {
     [signInSchema, validationsMiddleware],
     AuthenticationController.signIn
   );
-  // router.post('/signup', AuthenticationController.signUp);
+
+  router.patch('/signout/:userId', AuthenticationController.signOut);
 
   return router;
 };
