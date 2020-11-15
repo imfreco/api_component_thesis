@@ -63,7 +63,10 @@ class AuthenticationService {
     try {
       payload = verify(dict_token, JWT_SECRET);
     } catch (error) {
-      generateErrorHelper(400, 'El diccionario de sustitución caducó');
+      generateErrorHelper(
+        400,
+        'El tiempo de espera excedió, vuelva a intentarlo'
+      );
     }
 
     if (isNaN(password))

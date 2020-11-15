@@ -3,10 +3,8 @@ const { checkSchema } = require('express-validator');
 const signInSchema = checkSchema(
   {
     email: {
-      isLength: {
-        errorMessage:
-          'El correo electrónico debe tener al menos 11 caracteres y máximo 60 caracteres',
-        options: { min: 11, max: 60 },
+      isEmail: {
+        errorMessage: 'El correo electrónico no tiene una estructura correcta',
       },
     },
     password: {
