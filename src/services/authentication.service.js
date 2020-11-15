@@ -1,8 +1,6 @@
 const { verify } = require('jsonwebtoken');
 
-const BaseService = require('./base.service');
-let _authenticationRepository = null,
-  _userService = null;
+let _userService = null;
 
 const { JWT_SECRET } = require('../config');
 const {
@@ -12,12 +10,9 @@ const {
   generateSubstitutionDictionaryHelper,
 } = require('../helpers');
 const timesJwtFixture = require('../fixtures/times.jwt.fixture');
-// const { hashSync } = require('bcrypt');
 
-class AuthenticationService extends BaseService {
-  constructor({ AuthenticationRepository, UserService }) {
-    super(AuthenticationRepository);
-    _authenticationRepository = AuthenticationRepository;
+class AuthenticationService {
+  constructor({ UserService }) {
     _userService = UserService;
   }
 
@@ -74,12 +69,12 @@ class AuthenticationService extends BaseService {
     if (isNaN(password))
       generateErrorHelper(400, 'Está intentando acceder de forma sospechosa');
 
-    const creds = await _authenticationRepository.getCredentialsByEmail(email);
+    const creds = await _userService.getCredentialsByEmail(email);
 
-    if (!creds) generateErrorHelper(400, 'Correo electrónico no existe');
+    if (!creds) generateErrorHelper(400, 'Credenciales incorrectas');
 
     if (creds.lengthpass != password.length)
-      generateErrorHelper(400, 'La longitud de su contraseña es incorrecta');
+      generateErrorHelper(400, 'Credenciales incorrectas');
 
     let isMatched = compareCombinationsHelper(
       password,

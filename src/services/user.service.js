@@ -27,6 +27,10 @@ class UserService extends BaseService {
   async getCredentials(userId) {
     return await _userRepository.getCredentials(userId);
   }
+
+  async getCredentialsByEmail(email) {
+    return await _userRepository.getCredentialsByEmail(email);
+  }
 }
 
 module.exports = UserService;

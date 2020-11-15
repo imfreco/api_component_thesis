@@ -73,6 +73,13 @@ class UserRepository extends BaseRepository {
       where: { userId },
     });
   }
+
+  async getCredentialsByEmail(email) {
+    return await _credential.findOne({
+      attributes: ['lengthpass', 'hashpass', 'userId'],
+      where: { email },
+    });
+  }
 }
 
 module.exports = UserRepository;

@@ -49,7 +49,6 @@ const {
   InscriptionRepository,
   ComponentRepository,
   MenuRepository,
-  AuthenticationRepository,
   UserRepository,
 } = require('../repositories');
 
@@ -112,7 +111,6 @@ container
     InscriptionRepository: asClass(InscriptionRepository).singleton(),
     ComponentRepository: asClass(ComponentRepository).singleton(),
     MenuRepository: asClass(MenuRepository).singleton(),
-    AuthenticationRepository: asClass(AuthenticationRepository).singleton(),
     UserRepository: asClass(UserRepository).singleton(),
   });
 
