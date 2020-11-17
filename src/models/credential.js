@@ -1,4 +1,6 @@
+const { hashSync } = require('bcrypt');
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Credential extends Model {
     /**
