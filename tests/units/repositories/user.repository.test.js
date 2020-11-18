@@ -26,7 +26,7 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
   test('CP01 - Debería obtener las credenciales de un usuario por email', async () => {
     const credentialsExpected = {
       lengthpass: 6,
-      hashpass: 'FRED20',
+      hashpass: expect.any(String),
       userId: 1,
     };
     const email = 'frcortes@education.co';

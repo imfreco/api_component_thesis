@@ -19,6 +19,10 @@ class Server {
       });
     });
   }
+
+  getApp() {
+    return _express;
+  }
 }
 
 module.exports = Server;
