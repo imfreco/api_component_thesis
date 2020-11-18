@@ -9,7 +9,7 @@ class AuthenticationController {
 
   async getSubstitutionDictionary(req, res) {
     const token = await _authenticationService.getSubstitutionDictionary();
-    return res.send({ token });
+    return res.send(token);
   }
 
   async getRefreshToken(req, res) {

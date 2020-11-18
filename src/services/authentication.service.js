@@ -18,10 +18,11 @@ class AuthenticationService {
 
   async getSubstitutionDictionary() {
     let dictionary = generateSubstitutionDictionaryHelper();
-    return generateJwtHelper(
+    const dict_token = generateJwtHelper(
       { dictionary },
       { expiresIn: timesJwtFixture.dict_token }
     );
+    return { dict_token };
   }
 
   async getRefreshToken(refresh_token) {

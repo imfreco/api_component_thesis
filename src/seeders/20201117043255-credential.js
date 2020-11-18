@@ -1,3 +1,5 @@
+const { hashSync } = require('bcrypt');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -14,7 +16,7 @@ module.exports = {
         userId: 1,
         email: 'frcortes@education.co',
         lengthpass: 6,
-        hashpass: 'FRED20',
+        hashpass: hashSync('FRED20', 1),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -22,7 +24,7 @@ module.exports = {
         userId: 2,
         email: 'jduran@education.co',
         lengthpass: 6,
-        hashpass: 'JESU20',
+        hashpass: hashSync('JESU20', 1),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
