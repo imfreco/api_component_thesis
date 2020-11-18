@@ -12,7 +12,7 @@
     "db:migrate:test": "cross-env NODE_ENV=test sequelize-cli db:migrate",
     "db:seed:test": "cross-env NODE_ENV=test sequelize-cli db:seed:all",
     "test:init": "npm-run-all db:create:test db:migrate:test db:seed:test",
-    "test:jest": "jest --watchAll"
+    "test:jest": "jest --runInBand --watchAll"
   },
   "repository": {
     "type": "git",

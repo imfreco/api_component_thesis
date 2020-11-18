@@ -1,50 +1,13 @@
+const { charactersDictionaryFixture } = require('../fixtures');
+
 const generateIntegerRandom = (min, max) => {
   // no incluye max
   return Math.floor(Math.random() * (max - min) + min);
 };
 
 module.exports = () => {
-  let characters = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'Ñ',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z',
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-  ];
-  let payloadKeys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // el valor es el mismo indice
-  let payload = {
+  let dictionaryKeys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // el valor es el mismo indice
+  let dictionary = {
     0: [],
     1: [],
     2: [],
@@ -57,20 +20,20 @@ module.exports = () => {
     9: [],
   };
 
-  while (characters.length > 0) {
-    const payloadKeysIndex = generateIntegerRandom(0, payloadKeys.length);
-    const payloadKey = payloadKeys[payloadKeysIndex];
+  while (charactersDictionaryFixture.length > 0) {
+    const dictionaryKeysIndex = generateIntegerRandom(0, dictionaryKeys.length);
+    const dictionaryKey = dictionaryKeys[dictionaryKeysIndex];
 
-    if (payload[payloadKey].length < 4) {
-      payload[payloadKey].push(characters.pop());
+    if (dictionary[dictionaryKey].length < 4) {
+      dictionary[dictionaryKey].push(charactersDictionaryFixture.pop());
 
-      if (payload[payloadKey].length === 4) {
-        // procedemos a eliminar la key en payloadKeys que llegó al tope en payload
-        payloadKeys.filter((value, index) => index !== payloadKeysIndex);
-        //el valor deja de ser el mismo indice en payloadKeys
+      if (dictionary[dictionaryKey].length === 4) {
+        // procedemos a eliminar la key en dictionaryKeys que llegó al tope en dictionary
+        dictionaryKeys.filter((value, index) => index !== dictionaryKeysIndex);
+        //el valor deja de ser el mismo indice en dictionaryKeys
       }
     }
   }
 
-  return payload;
+  return dictionary;
 };

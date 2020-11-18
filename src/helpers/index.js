@@ -3,4 +3,5 @@ module.exports = {
   generateSubstitutionDictionaryHelper: require('./generate.substitution.dictionary.helper'),
   generateJwtHelper: require('./generate.jwt.helper'),
   compareCombinationsHelper: require('./compare.combinations.helper'),
+  hasRepeatedItemDictionaryHelper: require('./hasrepeated.dictionary.helper'),
 };

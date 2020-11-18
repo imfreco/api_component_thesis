@@ -29,9 +29,7 @@ class UserRepository extends BaseRepository {
   }
 
   async getScopesByUser(userId, method, module, fullAccess) {
-    // TODO: corregir
-    return _scope.findAll({
-      attributes: ['id'],
+    return await _scope.findAll({
       include: [
         {
           attributes: [],

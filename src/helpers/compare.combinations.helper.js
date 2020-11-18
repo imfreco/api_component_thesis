@@ -1,9 +1,9 @@
 const { compareSync } = require('bcrypt');
 
 module.exports = (password, dictionary, hashpass) => {
-  console.time('comparationLogic');
+  // console.time('comparationLogic');
   let r = [],
-    nCombinations = 0,
+    // nCombinations = 0,
     c = 0,
     n = 0,
     valuesOfN = 0,
@@ -42,7 +42,7 @@ module.exports = (password, dictionary, hashpass) => {
       else r[0][0]--;
       c = 0;
       const isPass = compareSync(combination, hashpass);
-      nCombinations++;
+      // nCombinations++;
       if (isPass) {
         canContinue = false;
         isCorrect = true;
@@ -50,9 +50,9 @@ module.exports = (password, dictionary, hashpass) => {
       combination = '';
     } else c++;
   }
-  console.info(`length password: ${password.length}`);
+  /* console.info(`length password: ${password.length}`);
   console.info(`combinations compared: ${nCombinations}`);
-  console.timeEnd('comparationLogic');
+  console.timeEnd('comparationLogic'); */
   return isCorrect;
 };
 
