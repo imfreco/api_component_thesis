@@ -6,6 +6,7 @@ const generateIntegerRandom = (min, max) => {
 };
 
 module.exports = () => {
+  let characters = [...charactersDictionaryFixture]; // copia del fixture
   let dictionaryKeys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // el valor es el mismo indice
   let dictionary = {
     0: [],
@@ -20,12 +21,12 @@ module.exports = () => {
     9: [],
   };
 
-  while (charactersDictionaryFixture.length > 0) {
+  while (characters.length > 0) {
     const dictionaryKeysIndex = generateIntegerRandom(0, dictionaryKeys.length);
     const dictionaryKey = dictionaryKeys[dictionaryKeysIndex];
 
     if (dictionary[dictionaryKey].length < 4) {
-      dictionary[dictionaryKey].push(charactersDictionaryFixture.pop());
+      dictionary[dictionaryKey].push(characters.pop());
 
       if (dictionary[dictionaryKey].length === 4) {
         // procedemos a eliminar la key en dictionaryKeys que llegó al tope en dictionary

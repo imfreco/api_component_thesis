@@ -28,7 +28,7 @@ describe('Prueba unitaria para la generación del diccionario de sustitución', 
     estos a su vez deben estar incluidos en el fixture de caracteres del diccionario */
     Object.values(dictionary).forEach((item) => {
       expect(item.length).toBeLessThanOrEqual(4);
-      expect(item).toEqual(expect.arrayContaining(charactersDictionaryFixture));
+      expect(charactersDictionaryFixture).toEqual(expect.arrayContaining(item));
     });
 
     // los valores de todos los conjuntos de valores originales no deben repetirse
