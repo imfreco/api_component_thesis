@@ -5,7 +5,7 @@ const { UserRepository } = require('../../../src/repositories');
 
 describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
   const _userRepository = new UserRepository({ db });
-  const userId = 1;
+  const userId = 1; // seeder en test db
 
   expect.extend({
     nullOrString(received) {
@@ -29,7 +29,7 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
       hashpass: expect.any(String),
       userId: 1,
     };
-    const email = 'frcortes@education.co';
+    const email = 'frcortes@education.co'; // seeder en test db
 
     const credentialsReceived = await _userRepository.getCredentialsByEmail(
       email
@@ -38,18 +38,8 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
     expect(credentialsReceived.dataValues).toEqual(credentialsExpected);
   });
 
-  test('CP02 - Debería obtener las credenciales de un usuario por userId', async () => {
-    const credentialsExpected = {
-      lastRT: expect.nullOrString(),
-    };
-
-    const credentialsReceived = await _userRepository.getCredentials(userId);
-
-    expect(credentialsReceived.dataValues).toEqual(credentialsExpected);
-  });
-
-  test('CP03 - Debería obtener los roles de un usuario por userId', async () => {
-    const rolesExpected = [{ name: 'Estudiante' }];
+  test('CP02 - Debería obtener los roles de un usuario por userId', async () => {
+    const rolesExpected = [{ name: 'Estudiante' }]; // seeder en test db
 
     const rolesReceived = await _userRepository.getRolesByUser(userId);
 
@@ -57,7 +47,7 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
     expect(rolesReceived[0].dataValues).toEqual(rolesExpected[0]);
   });
 
-  test('CP04 - Debería modificar el último token de actualización emitido', async () => {
+  test('CP05 - Debería modificar el último token de actualización emitido', async () => {
     const updateExpected = [1];
 
     const refresh_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
@@ -70,7 +60,7 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
     expect(updateReceived).toEqual(updateExpected);
   });
 
-  /* test('CP05 - Debería obtener los privilegios de un usuario por userId', async () => {
+  /* test('CP06 - Debería obtener los privilegios de un usuario por userId', async () => {
     // const scopesExpected = { methodId: 1, moduleId: 2, fullAccess: true };
 
     const method = 'get';

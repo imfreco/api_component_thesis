@@ -5,7 +5,7 @@ const {
 } = require('../../../src/helpers');
 
 describe('Prueba unitaria para la generación del diccionario de sustitución', () => {
-  test('CP06 - Debería generar un diccionario de sustitución aleatoria con la estructura correcta', () => {
+  test('CP03 - Debería generar un diccionario de sustitución aleatoria con la estructura correcta', () => {
     const dictionary = generateSubstitutionDictionaryHelper();
 
     /* debe estar formado por una key que hace referencia al valor de sustitución y un

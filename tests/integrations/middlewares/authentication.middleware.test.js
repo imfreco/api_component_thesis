@@ -10,7 +10,7 @@ const { replacePassword } = require('../../helpers/dictionary.helpers');
 describe('Pruebas de integración en el middleware de autenticación', () => {
   const baseUrl = '/v1/api';
 
-  test('CP13 - Debería responder satisfactoriamente con envío del token de identificación', async () => {
+  test('CP08 - Debería controlar el acceso al endpoint que requiere autenticación', async () => {
     const res1 = await request(app).get(`${baseUrl}/auth/substitution`);
     const { dict_token } = res1.body;
     const { dictionary } = decode(dict_token);
@@ -22,19 +22,33 @@ describe('Pruebas de integración en el middleware de autenticación', () => {
       .post(`${baseUrl}/auth/signin`)
       .send({ email, password, dict_token });
 
+    const { id_token, refresh_token } = res2.body;
+
     const res3 = await request(app)
       .get(`${baseUrl}/inscription`)
-      .set('Authorization', res2.body.id_token);
+      .set('Authorization', id_token);
 
+    const res4 = await request(app)
+      .get(`${baseUrl}/inscription`)
+      .set('Authorization', refresh_token);
+
+    const res5 = await request(app).get(`${baseUrl}/inscription`);
+
+    // el token de identificación es el único elemento válido para el acceso al endpoint
     expect(res3.statusCode).toBe(200);
     expect(res3.body).toEqual(expect.any(Array));
-  });
 
-  test('CP14 - Debería responder con falta de autorización sin el envío del token de identificación', async () => {
-    const res1 = await request(app).get(`${baseUrl}/inscription`);
+    // el token de actualización NO es un elemento válido para el acceso al endpoint
+    expect(res4.statusCode).toBe(401);
+    expect(res4.body).toEqual({
+      status: 401,
+      message: expect.any(String),
+    });
 
-    expect(res1.statusCode).toBe(401);
-    expect(res1.body).toEqual({
+    /* es necesario presentar un elemento válido para el acceso al endpoint mediante la
+    cabecera de autorización */
+    expect(res5.statusCode).toBe(401);
+    expect(res5.body).toEqual({
       status: 401,
       message: expect.any(String),
     });

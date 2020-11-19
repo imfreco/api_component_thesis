@@ -12,10 +12,15 @@ module.exports = (req, res, next) => {
   }
 
   verify(id_token, JWT_SECRET, (err, payload) => {
-    if (err) {
-      //invalid id_token
+    if (
+      err ||
+      !payload.user ||
+      !payload.name ||
+      !payload.lastname ||
+      !payload.roles
+    )
+      //invalid id_token or maybe it's a refresh token
       generateErrorHelper(401, 'La autenticación es requerida');
-    }
 
     res.locals.user = payload.user;
     res.locals.authenticated = true;
