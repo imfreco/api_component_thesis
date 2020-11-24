@@ -60,12 +60,11 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
     expect(updateReceived).toEqual(updateExpected);
   });
 
-  /* test('CP06 - Debería obtener los privilegios de un usuario por userId', async () => {
-    // const scopesExpected = { methodId: 1, moduleId: 2, fullAccess: true };
-
+  test('CP06 - Debería obtener los privilegios de un usuario por userId', async () => {
     const method = 'get';
     const module = 'average';
     const fullAccess = true;
+    const scopesExpected = { methodId: 1, moduleId: 1, fullAccess };
 
     const scopesReceived = await _userRepository.getScopesByUser(
       userId,
@@ -74,9 +73,10 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
       fullAccess
     );
 
-    console.log(scopesReceived);
-    // expect(scopesReceived).toEqual(scopesExpected);
-  }); */
+    expect(scopesReceived.dataValues).toEqual(
+      expect.objectContaining(scopesExpected)
+    );
+  });
 
   afterAll(async () => {
     await db.sequelize.close();

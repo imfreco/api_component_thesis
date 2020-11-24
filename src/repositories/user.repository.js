@@ -29,29 +29,25 @@ class UserRepository extends BaseRepository {
   }
 
   async getScopesByUser(userId, method, module, fullAccess) {
-    return await _scope.findAll({
-      include: [
-        {
+    const {
+      dataValues: { id: moduleId },
+    } = await _module.findOne({ attributes: ['id'], where: { name: module } });
+
+    const {
+      dataValues: { id: methodId },
+    } = await _method.findOne({ attributes: ['id'], where: { name: method } });
+
+    return await _scope.findOne({
+      include: {
+        attributes: [],
+        model: _role,
+        include: {
           attributes: [],
-          model: _role,
-          include: {
-            attributes: [],
-            model: _user,
-            where: { id: userId },
-          },
+          model: _user,
+          where: { id: userId },
         },
-        {
-          attributes: [],
-          model: _method,
-          where: { name: method },
-        },
-        {
-          attributes: [],
-          model: _module,
-          where: { name: module },
-        },
-      ],
-      where: { fullAccess },
+      },
+      where: { moduleId, methodId, fullAccess },
     });
   }
 

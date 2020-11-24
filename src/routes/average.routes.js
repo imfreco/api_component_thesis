@@ -1,8 +1,5 @@
 const { Router } = require('express');
-const {
-  authenticationMiddleware,
-  authorizationMiddleware,
-} = require('../middlewares');
+const { authenticationMiddleware } = require('../middlewares');
 
 module.exports = function ({ AverageController }) {
   const router = Router();

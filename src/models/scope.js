@@ -11,8 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         through: models.RoleScopes,
         foreignKey: 'scopeId',
       });
-      this.belongsTo(models.Method);
-      this.belongsTo(models.Module);
     }
   }
   Scope.init(
