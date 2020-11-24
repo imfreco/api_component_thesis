@@ -16,9 +16,10 @@ module.exports = async (req, res, next) => {
   const reqBaseUrl = req.baseUrl;
   const model = reqBaseUrl.split('/').pop();
   let fullAccess = false;
+  let param = '';
   const reqPathRoute = req.route.path;
   if (reqPathRoute) {
-    // param = reqPathRoute.replace('/:', '');
+    param = reqPathRoute.replace('/:', '');
     fullAccess = true;
   }
 
@@ -30,11 +31,8 @@ module.exports = async (req, res, next) => {
     fullAccess
   );
 
-  //   console.log(hasScopes);
+  // console.log(method, model, fullAccess);
 
-  if (hasScopes) {
-    next();
-  } else {
-    generateErrorHelper(401, 'No tiene permiso para acceder a este recurso');
-  }
+  if (hasScopes) next();
+  else generateErrorHelper(401, 'No tiene permiso para acceder a este recurso');
 };

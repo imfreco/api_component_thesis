@@ -48,7 +48,7 @@ module.exports = {
       {
         moduleId: 4,
         methodId: 2,
-        fullAccess: false,
+        fullAccess: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -62,7 +62,7 @@ module.exports = {
       {
         moduleId: 4,
         methodId: 5,
-        fullAccess: false,
+        fullAccess: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -76,14 +76,14 @@ module.exports = {
       {
         moduleId: 5,
         methodId: 2,
-        fullAccess: false,
+        fullAccess: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         moduleId: 6,
         methodId: 2,
-        fullAccess: false,
+        fullAccess: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

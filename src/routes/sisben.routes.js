@@ -1,10 +1,17 @@
 const { Router } = require('express');
-const { authenticationMiddleware } = require('../middlewares');
+const {
+  authenticationMiddleware,
+  authorizationMiddleware,
+} = require('../middlewares');
 
 module.exports = function ({ SisbenController }) {
   const router = Router();
 
-  router.get('/', [authenticationMiddleware], SisbenController.getAll);
+  router.get(
+    '/',
+    [authenticationMiddleware, authorizationMiddleware],
+    SisbenController.getAll
+  );
 
   return router;
 };
