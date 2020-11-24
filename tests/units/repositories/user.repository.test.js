@@ -39,7 +39,7 @@ describe('Pruebas unitarias de la capa de acceso a datos del usuario', () => {
   });
 
   test('CP02 - Debería obtener los roles de un usuario por userId', async () => {
-    const rolesExpected = [{ name: 'Estudiante' }]; // seeder en test db
+    const rolesExpected = [{ name: 'estudiante' }]; // seeder en test db
 
     const rolesReceived = await _userRepository.getRolesByUser(userId);
 

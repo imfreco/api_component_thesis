@@ -7,11 +7,7 @@ const {
 module.exports = function ({ AverageController }) {
   const router = Router();
 
-  router.get(
-    '/',
-    [authenticationMiddleware, authorizationMiddleware],
-    AverageController.getAll
-  );
+  router.get('/', [authenticationMiddleware], AverageController.getAll);
 
   return router;
 };

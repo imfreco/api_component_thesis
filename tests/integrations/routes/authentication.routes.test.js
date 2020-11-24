@@ -10,7 +10,7 @@ const { replacePassword } = require('../../helpers/dictionary.helpers');
 describe('Pruebas de integración en el módulo de autenticación', () => {
   const baseUrl = '/v1/api';
 
-  test('CP07 - Debería responder con un token de identificación y actualización nuevos cuando se autentica inicialmente y silenciosamente', async () => {
+  test('CP07 - Debería responder con un token de identificación y actualización cuando se autentica inicialmente y silenciosamente', async () => {
     const res1 = await request(app).get(`${baseUrl}/auth/substitution`);
     const { dict_token } = res1.body;
     const { dictionary } = decode(dict_token);

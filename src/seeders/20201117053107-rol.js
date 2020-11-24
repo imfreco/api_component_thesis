@@ -10,9 +10,9 @@ module.exports = {
      * }], {});
      */
     await queryInterface.bulkInsert('Roles', [
-      { name: 'Estudiante', createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Nutricionista', createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Administrador', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'estudiante', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'nutricionista', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'administrador', createdAt: new Date(), updatedAt: new Date() },
     ]);
   },
 

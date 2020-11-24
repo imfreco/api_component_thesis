@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
     "db:create": "sequelize-cli db:create",
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed": "sequelize-cli db:seed:all",
     "test:init": "cross-env NODE_ENV=test npm-run-all db:create db:migrate db:seed",
+    "start:dev": "nodemon index.js",
+    "start:test": "cross-env NODE_ENV=test nodemon index.js",
+    "start": "node index.js",
     "test:jest": "jest --watchAll"
   },
   "repository": {
