@@ -24,15 +24,17 @@ describe('Pruebas de integración en el middleware de autenticación', () => {
 
     const { id_token, refresh_token } = res2.body;
 
+    const { user: userId } = decode(id_token);
+
     const res3 = await request(app)
-      .get(`${baseUrl}/inscription`)
+      .get(`${baseUrl}/inscription/${userId}`)
       .set('Authorization', id_token);
 
     const res4 = await request(app)
-      .get(`${baseUrl}/inscription`)
+      .get(`${baseUrl}/inscription/${userId}`)
       .set('Authorization', refresh_token);
 
-    const res5 = await request(app).get(`${baseUrl}/inscription`);
+    const res5 = await request(app).get(`${baseUrl}/inscription/${userId}`);
 
     // el token de identificación es el único elemento válido para el acceso al endpoint
     expect(res3.statusCode).toBe(200);

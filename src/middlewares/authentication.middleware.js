@@ -23,7 +23,6 @@ module.exports = (req, res, next) => {
       generateErrorHelper(401, 'La autenticación es requerida');
 
     res.locals.user = payload.user;
-    res.locals.authenticated = true;
     next();
   });
 };

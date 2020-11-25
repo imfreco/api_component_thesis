@@ -39,16 +39,46 @@ class UserRepository extends BaseRepository {
 
     return await _scope.findOne({
       include: {
-        attributes: [],
         model: _role,
         include: {
-          attributes: [],
           model: _user,
           where: { id: userId },
+          required: true,
         },
+        required: true,
       },
       where: { moduleId, methodId, fullAccess },
     });
+    /* return await _user.findOne({
+      include: {
+        attributes: ['id', 'name'],
+        model: _role,
+        include: {
+          model: _scope,
+          required: false,
+        },
+        required: true,
+      },
+      where: { id: userId },
+    }); */
+    /* return await _db.sequelize.query(
+      `SELECT "User"."id", "User"."name", "User"."lastname", "User"."phone", "User"."createdAt", "User"."updatedAt", "Roles"."id" AS 
+      "Roles.id", "Roles"."name" AS "Roles.name", "Roles->UserRoles"."roleId" AS "Roles.UserRoles.roleId", "Roles->UserRoles"."userId" AS
+       "Roles.UserRoles.userId", "Roles->UserRoles"."createdAt" AS "Roles.UserRoles.createdAt", "Roles->UserRoles"."updatedAt" AS 
+       "Roles.UserRoles.updatedAt", "Roles->Scopes"."moduleId" AS "Roles.Scopes.moduleId", "Roles->Scopes"."methodId" AS 
+       "Roles.Scopes.methodId", "Roles->Scopes"."fullAccess" AS "Roles.Scopes.fullAccess", "Roles->Scopes"."createdAt" AS 
+       "Roles.Scopes.createdAt", "Roles->Scopes"."updatedAt" AS "Roles.Scopes.updatedAt", "Roles->Scopes->RoleScopes"."roleId" AS 
+       "Roles.Scopes.RoleScopes.roleId", "Roles->Scopes->RoleScopes"."scopeId" AS "Roles.Scopes.RoleScopes.scopeId", 
+       "Roles->Scopes->RoleScopes"."createdAt" AS "Roles.Scopes.RoleScopes.createdAt", "Roles->Scopes->RoleScopes"."updatedAt" AS 
+       "Roles.Scopes.RoleScopes.updatedAt" FROM "Users" AS "User" INNER JOIN ( "UserRoles" AS "Roles->UserRoles" INNER JOIN "Roles" AS 
+       "Roles" ON "Roles"."id" = "Roles->UserRoles"."roleId") ON "User"."id" = "Roles->UserRoles"."userId" LEFT OUTER JOIN ( "RoleScopes"
+        AS "Roles->Scopes->RoleScopes" INNER JOIN "Scopes" AS "Roles->Scopes" ON "Roles->Scopes"."id" = 
+        "Roles->Scopes->RoleScopes"."scopeId") ON "Roles"."id" = "Roles->Scopes->RoleScopes"."roleId" WHERE "User"."id" = ${userId};`,
+      {
+        model: [_scope, _role, _user],
+        mapToModel: true, // pass true here if you have any mapped fields
+      }
+    ); */
   }
 
   async updateLastRefreshToken(userId, refresh_token) {

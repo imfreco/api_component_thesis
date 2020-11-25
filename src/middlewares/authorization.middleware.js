@@ -15,24 +15,24 @@ module.exports = async (req, res, next) => {
   const method = req.method.toLowerCase();
   const reqBaseUrl = req.baseUrl;
   const model = reqBaseUrl.split('/').pop();
-  let fullAccess = false;
+  let fullAccess = true;
   let param = '';
   const reqPathRoute = req.route.path;
   if (reqPathRoute) {
-    param = reqPathRoute.replace('/:', '');
-    fullAccess = true;
+    param = reqPathRoute.replace('/', '');
+    if (param) fullAccess = false;
   }
 
   // search if exists scope for this user
-  const hasScopes = await _userRepository.getScopesByUser(
+  const hasScope = await _userRepository.getScopesByUser(
     user,
     method,
     model,
     fullAccess
   );
 
-  // console.log(method, model, fullAccess);
+  // console.log(user, method, model, fullAccess);
 
-  if (hasScopes) next();
+  if (hasScope) next();
   else generateErrorHelper(401, 'No tiene permiso para acceder a este recurso');
 };

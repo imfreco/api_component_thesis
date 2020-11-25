@@ -62,7 +62,7 @@ module.exports = {
       {
         moduleId: 4,
         methodId: 5,
-        fullAccess: true,
+        fullAccess: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
