@@ -26,20 +26,20 @@ describe('Pruebas de integración en el middleware de autenticación', () => {
     const { user: id } = decode(id_token);
 
     const res3 = await request(app)
-      .get(`${baseUrl}/inscription`)
-      .set('Authorization', id_token);
-
-    const res4 = await request(app)
       .get(`${baseUrl}/inscription/${id}`)
       .set('Authorization', id_token);
 
-    // el token de identificación es el único elemento válido en la capa 1 para el acceso al endpoint
-    // los privilegios que posee el usuario identificado son la 2 capa para el control de acceso
-    expect(res3.statusCode).toBe(401);
-    expect(res3.body).toEqual(expect.objectContaining({ status: 401 }));
+    const res4 = await request(app)
+      .get(`${baseUrl}/inscription`)
+      .set('Authorization', id_token);
 
-    expect(res4.statusCode).toBe(200);
-    expect(res4.body).toEqual(expect.any(Array));
+    // el token de identificación es el primer elemento requerido para el acceso al endpoint
+    expect(res3.statusCode).toBe(200);
+    expect(res3.body).toEqual(expect.any(Array));
+
+    // pero el privilegio a ese recurso es el segundo elemento requerido para el acceso al endpoint
+    expect(res4.statusCode).toBe(401);
+    expect(res4.body).toEqual(expect.objectContaining({ status: 401 }));
   });
 
   afterAll(async () => {

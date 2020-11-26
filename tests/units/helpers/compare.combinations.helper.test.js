@@ -17,16 +17,16 @@ describe('Prueba unitaria para la validación de la contraseña sustituida', () 
   const hashpass = hashSync('FRED20', 1); // simulate seeder in test db
 
   test('CP04 - Debería retornar una valor de coincidencia según la validez de la contraseña', () => {
-    const passwordValid = '933189';
-    const passwordInvalid = '933188';
+    const validPassword = '933189';
+    const invalidPassword = '933188';
 
     const isMatched1 = compareCombinationsHelper(
-      passwordValid,
+      validPassword,
       dictionary,
       hashpass
     );
     const isMatched2 = compareCombinationsHelper(
-      passwordInvalid,
+      invalidPassword,
       dictionary,
       hashpass
     );
