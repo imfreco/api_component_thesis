@@ -26,11 +26,6 @@ describe('Pruebas de seguridad en las rutas privadas con la detección de reuso'
     const leakedRefreshToken = RT1; // simulate leaked RT
 
     // simulate id_token death time and legitime client request new IT
-    console.time('simulateTime');
-    for (let i = 0; i < 2000; i++) {
-      console.log('');
-    }
-    console.timeEnd('simulateTime');
 
     const res3 = await request(app) // simulate silent authentication for legitime client
       .get(`${baseUrl}/auth/refresh`)
@@ -76,11 +71,6 @@ describe('Pruebas de seguridad en las rutas privadas con la detección de reuso'
     const leakedRefreshToken = RT1; // simulate leaked RT
 
     // simulate id_token death time and legitime client request new IT
-    console.time('simulateTime');
-    for (let i = 0; i < 2000; i++) {
-      console.log('');
-    }
-    console.timeEnd('simulateTime');
 
     const res3 = await request(app) // simulate silent authentication for legitime client
       .get(`${baseUrl}/auth/refresh`)

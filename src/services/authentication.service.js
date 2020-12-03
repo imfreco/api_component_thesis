@@ -50,7 +50,10 @@ class AuthenticationService {
     );
     const new_refresh_token = generateJwtHelper(
       { user: id },
-      { expiresIn: timesJwtFixture.refresh_token }
+      {
+        expiresIn: timesJwtFixture.refresh_token,
+        jwtid: new Date().getTime().toString(),
+      }
     );
 
     await _userService.updateLastRefreshToken(id, new_refresh_token);
